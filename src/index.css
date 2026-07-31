@@ -1,1 +1,266 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Orbitron", "Inter", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 10s ease-in-out infinite;
+  --animate-orbit: orbit 24s linear infinite;
+  --animate-spin-slow: spin360 30s linear infinite;
+  --animate-gradient: gradient-shift 12s ease infinite;
+  --animate-wiggle: wiggle 2.4s ease-in-out infinite;
+  --animate-marquee: marquee 24s linear infinite;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+@keyframes spin360 {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-16px) rotate(3deg); }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(26px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(26px) rotate(-360deg); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ---------- Starfield canvas ---------- */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---------- Nebula backdrop ---------- */
+.nebula {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.nebula div {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+}
+
+/* ---------- Planets ---------- */
+.planet {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+.planet-ring::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 40%;
+  transform: translate(-50%, -50%) rotate(-18deg);
+  border-radius: 50%;
+  border: 2px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 0 18px rgba(125, 211, 252, 0.25);
+}
+.planet-1 {
+  width: 120px;
+  height: 120px;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.55), transparent 22%),
+    radial-gradient(circle at 40% 40%, #f59e0b, #b45309 70%);
+  box-shadow: 0 0 60px rgba(245, 158, 11, 0.35);
+}
+.planet-2 {
+  width: 70px;
+  height: 70px;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.5), transparent 22%),
+    radial-gradient(circle at 40% 40%, #22d3ee, #0e7490 70%);
+  box-shadow: 0 0 50px rgba(34, 211, 238, 0.4);
+}
+.planet-3 {
+  width: 46px;
+  height: 46px;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.5), transparent 22%),
+    radial-gradient(circle at 40% 40%, #a78bfa, #6d28d9 70%);
+  box-shadow: 0 0 40px rgba(167, 139, 250, 0.45);
+}
+
+/* ---------- Cursor ---------- */
+.cursor-blink {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  margin-left: 4px;
+  background: currentColor;
+  vertical-align: text-bottom;
+  animation: blink 0.9s step-end infinite;
+}
+
+/* ---------- Glass card ---------- */
+.glass {
+  background: rgba(13, 18, 40, 0.55);
+  border: 1px solid rgba(125, 211, 252, 0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ---------- Galaxy gradient text ---------- */
+.galaxy-text {
+  background: linear-gradient(120deg, #7dd3fc, #a78bfa, #f472b6, #fbbf24, #7dd3fc);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- tilted card ---------- */
+.tilt-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transform-style: preserve-3d;
+}
+.tilt-card:hover {
+  transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
+}
+
+/* ---------- project card glow ---------- */
+.glow-card {
+  position: relative;
+  overflow: hidden;
+}
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(120deg, #22d3ee, #a78bfa, #f472b6, #fbbf24, #22d3ee);
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Mouse tracer ---------- */
+.mouse-trail {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* ---------- Custom cursor ---------- */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10001;
+  border-radius: 50%;
+  display: none;
+}
+
+.has-custom-cursor .cursor-dot,
+.has-custom-cursor .cursor-ring {
+  display: block;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: #22d3ee;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.9);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cursor-dot.hovering {
+  background: #fbbf24;
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.9);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 2px solid rgba(167, 139, 250, 0.55);
+  transition: width 0.2s ease, height 0.2s ease, margin 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.cursor-ring.hovering {
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border-color: rgba(244, 114, 182, 0.8);
+  background: rgba(244, 114, 182, 0.12);
+}
+
+@media (pointer: coarse) {
+  .has-custom-cursor,
+  .has-custom-cursor * {
+    cursor: auto;
+  }
+}
