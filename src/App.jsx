@@ -1,5 +1,5 @@
 import BackgroundSky from './components/effects/BackgroundSky';
-import CustomCursor from './components/effects/CustomCursor';
+import ClickEffect from './components/effects/ClickEffect';
 import ScrollProgress from './components/effects/ScrollProgress';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -22,7 +22,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen font-body">
       <BackgroundSky />
-      <CustomCursor />
+      <ClickEffect />
       <ScrollProgress />
 
       <Navbar theme={mode} toggleTheme={toggleMode} />

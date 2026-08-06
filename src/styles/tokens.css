@@ -223,46 +223,37 @@ html { scroll-behavior: smooth; }
   background: linear-gradient(90deg, transparent, var(--line), transparent);
 }
 
-/* ---------- Custom cursor ---------- */
-.has-custom-cursor,
-.has-custom-cursor * { cursor: none !important; }
-.cursor-dot,
-.cursor-ring {
+/* ---------- Click effect ---------- */
+.click-effect {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: 12000;
   pointer-events: none;
-  border-radius: 9999px;
-  display: none;
 }
-.has-custom-cursor .cursor-dot,
-.has-custom-cursor .cursor-ring { display: block; }
-.cursor-dot {
-  width: 6px;
-  height: 6px;
-  margin: -3px 0 0 -3px;
-  background: var(--accent-hi);
-  box-shadow: 0 0 12px var(--accent-hi);
+.click-switcher {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
 }
-.cursor-ring {
-  width: 38px;
-  height: 38px;
-  margin: -19px 0 0 -19px;
-  border: 1.5px solid color-mix(in srgb, var(--accent) 60%, transparent);
-  transition: width 0.3s ease, height 0.3s ease, margin 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+.click-chip {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink-soft);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
 }
-.cursor-ring.is-hover {
-  width: 60px;
-  height: 60px;
-  margin: -30px 0 0 -30px;
-  border-color: var(--accent-hi);
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-}
-@media (pointer: coarse) {
-  .has-custom-cursor,
-  .has-custom-cursor * { cursor: auto; }
-}
+.click-chip:hover { color: var(--ink); border-color: var(--accent); }
+.click-chip.is-active { color: var(--accent-hi); border-color: var(--accent-hi); }
 
 /* ---------- Typewriter caret ---------- */
 .caret {
