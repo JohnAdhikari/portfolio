@@ -1,8 +1,19 @@
 import { useEffect, useState } from 'react';
 import { FiSun, FiCloud, FiCloudRain, FiCloudSnow, FiCloudLightning, FiCloudDrizzle, FiMoon } from 'react-icons/fi';
 
-// Default: Kathmandu, Nepal (fallback if geolocation is denied/unavailable)
-const DEFAULT = { lat: 27.7172, lon: 85.324, name: 'Kathmandu' };
+// Time & weather for Kathmandu, Nepal (owner's location). No location text is
+// rendered and no location is requested from the visitor — lookups are fixed.
+const LOCATION = { lat: 27.7172, lon: 85.324 };
+const TIMEZONE = 'Asia/Kathmandu';
+
+// Format time in the Kathmandu timezone (owner's time, not the visitor's).
+function formatTime(d) {
+  return new Intl.DateTimeFormat([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: TIMEZONE,
+  }).format(d);
+}
 
 // Open-Meteo WMO weather codes -> icon + label
 function describe(code, isDay) {
@@ -19,10 +30,6 @@ function describe(code, isDay) {
   return { icon: FiCloud, label: 'Cloudy' };
 }
 
-function formatTime(d) {
-  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-
 export default function WeatherClock() {
   const [time, setTime] = useState(() => formatTime(new Date()));
   const [weather, setWeather] = useState(null);
@@ -34,12 +41,11 @@ export default function WeatherClock() {
 
   useEffect(() => {
     let cancelled = false;
-    const coords = { lat: DEFAULT.lat, lon: DEFAULT.lon };
 
-    const load = async (lat, lon) => {
+    const load = async () => {
       try {
         const res = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day,wind_speed_10m&timezone=auto`,
+          `https://api.open-meteo.com/v1/forecast?latitude=${LOCATION.lat}&longitude=${LOCATION.lon}&current=temperature_2m,weather_code,is_day&timezone=auto`,
         );
         if (!res.ok) throw new Error('weather fetch failed');
         const data = await res.json();
@@ -48,7 +54,6 @@ export default function WeatherClock() {
             temp: Math.round(data.current.temperature_2m),
             code: data.current.weather_code,
             isDay: data.current.is_day === 1,
-            wind: Math.round(data.current.wind_speed_10m),
           });
         }
       } catch {
@@ -56,22 +61,8 @@ export default function WeatherClock() {
       }
     };
 
-    // Try geolocation first, fall back to default location
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          coords.lat = pos.coords.latitude;
-          coords.lon = pos.coords.longitude;
-          load(coords.lat, coords.lon);
-        },
-        () => load(coords.lat, coords.lon),
-        { timeout: 5000 },
-      );
-    } else {
-      load(coords.lat, coords.lon);
-    }
-
-    const refresh = setInterval(() => load(coords.lat, coords.lon), 10 * 60 * 1000);
+    load();
+    const refresh = setInterval(load, 10 * 60 * 1000);
     return () => {
       cancelled = true;
       clearInterval(refresh);
