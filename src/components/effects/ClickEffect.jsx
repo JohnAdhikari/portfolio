@@ -62,7 +62,11 @@ export default function ClickEffect() {
       });
 
       ctx.globalAlpha = 1;
-      if (particles.length) raf = requestAnimationFrame(draw);
+      if (particles.length) {
+        raf = requestAnimationFrame(draw);
+      } else {
+        raf = null;
+      }
     };
 
     const onPointerDown = (e) => {
