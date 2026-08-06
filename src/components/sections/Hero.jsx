@@ -5,6 +5,7 @@ import useTypewriter from '../../hooks/useTypewriter';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import MagneticButton from '../ui/MagneticButton';
 import Icon from '../ui/Icon';
+import WeatherClock from '../ui/WeatherClock';
 import profileImage from '../../assets/optimized/profileImage.jpg';
 
 const countUp = (el, end, reduced) => {
@@ -90,6 +91,10 @@ export default function Hero({ onNavigate }) {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
             </span>
             Available for new projects
+          </div>
+
+          <div data-hero-line className="mt-4 flex flex-wrap items-center gap-3">
+            <WeatherClock />
           </div>
 
           <p data-hero-line className="mt-6 text-base text-ink-dim">
