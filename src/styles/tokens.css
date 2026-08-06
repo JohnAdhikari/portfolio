@@ -230,30 +230,6 @@ html { scroll-behavior: smooth; }
   z-index: 12000;
   pointer-events: none;
 }
-.click-switcher {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 90;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-}
-.click-chip {
-  border: 1px solid var(--line);
-  background: var(--panel);
-  color: var(--ink-soft);
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-}
-.click-chip:hover { color: var(--ink); border-color: var(--accent); }
-.click-chip.is-active { color: var(--accent-hi); border-color: var(--accent-hi); }
 
 /* ---------- Typewriter caret ---------- */
 .caret {
