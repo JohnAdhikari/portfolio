@@ -241,6 +241,28 @@ html { scroll-behavior: smooth; }
 /* ---------- Profile ring ---------- */
 .profile-ring { background: var(--ring-grad); }
 
+/* ---------- Cursor spotlight reveal ---------- */
+.cursor-spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in srgb, var(--accent) 16%, transparent),
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+:root.dark .cursor-spotlight {
+  background: radial-gradient(
+    260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in srgb, var(--accent-hi) 22%, transparent),
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+
 /* ---------- Scroll progress ---------- */
 #scroll-progress { transform-origin: left; transform: scaleX(0); }
 

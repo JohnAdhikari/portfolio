@@ -6,7 +6,7 @@ import useReducedMotion from '../../hooks/useReducedMotion';
 import MagneticButton from '../ui/MagneticButton';
 import Icon from '../ui/Icon';
 import WeatherClock from '../ui/WeatherClock';
-import profileImage from '../../assets/optimized/profileImage.jpg';
+import { Hero3D } from '../three/lazy3d';
 
 const countUp = (el, end, reduced) => {
   if (reduced) {
@@ -55,24 +55,6 @@ export default function Hero({ onNavigate }) {
           onEnter: () => countUp(el, end, false),
         });
       });
-
-      // profile parallax on mouse (desktop only)
-      const mq = window.matchMedia('(pointer: fine)');
-      if (!mq.matches) return;
-      const img = root.current.querySelector('[data-hero-img]');
-      const onMove = (e) => {
-        const cx = window.innerWidth / 2;
-        const cy = window.innerHeight / 2;
-        gsap.to(img, {
-          rotateY: ((e.clientX - cx) / cx) * 7,
-          rotateX: -((e.clientY - cy) / cy) * 7,
-          transformPerspective: 900,
-          duration: 0.7,
-          ease: 'power2.out',
-        });
-      };
-      window.addEventListener('mousemove', onMove);
-      return () => window.removeEventListener('mousemove', onMove);
     },
     { scope: root },
   );
@@ -148,19 +130,9 @@ export default function Hero({ onNavigate }) {
           </div>
         </div>
 
-        {/* Portrait */}
-        <div data-hero-portrait className="relative mx-auto flex justify-center">
-          <div className="profile-ring absolute -inset-4 rounded-full opacity-70 blur-2xl" aria-hidden="true" />
-          <div className="relative aspect-square w-64 overflow-hidden rounded-full border border-line sm:w-80">
-            <img
-              data-hero-img
-              src={profileImage}
-              alt={profile.avatarAlt}
-              className="h-full w-full object-cover"
-              loading="eager"
-            />
-            <div className="absolute inset-0 rounded-full shadow-[inset_0_0_40px_rgba(3,5,12,0.5)]" aria-hidden="true" />
-          </div>
+        {/* 3D Scene */}
+        <div data-hero-portrait className="relative mx-auto flex items-center justify-center">
+          <Hero3D />
           <span className="absolute -right-2 top-6 flex items-center gap-1.5 rounded-full border border-line bg-panel px-3 py-1.5 text-xs font-semibold backdrop-blur-md">
             <Icon name="star" size={14} className="text-accent-hi" />
             Open to work

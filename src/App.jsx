@@ -1,5 +1,7 @@
 import BackgroundSky from './components/effects/BackgroundSky';
 import ScrollProgress from './components/effects/ScrollProgress';
+import CursorSpotlight from './components/effects/CursorSpotlight';
+import { ParticleField } from './components/three/lazy3d';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
@@ -21,6 +23,8 @@ export default function App() {
   return (
     <div className="relative min-h-screen font-body">
       <BackgroundSky />
+      <ParticleField />
+      <CursorSpotlight />
       <ScrollProgress />
 
       <Navbar theme={mode} toggleTheme={toggleMode} />

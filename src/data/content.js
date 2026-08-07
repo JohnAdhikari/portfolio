@@ -1,4 +1,12 @@
 // Single source of truth for all portfolio content.
+import profileImage from '../assets/optimized/profileImage.jpg';
+import certificate from '../assets/logos/John_Adhikari_Certificate.pdf';
+import zoneMartLogo from '../assets/logos/zone-mart-logo.svg';
+import zoneMediaLogo from '../assets/logos/zone-media-logo.png';
+import chatBotLogo from '../assets/logos/chat-bot-logo.svg';
+import pailaLogo from '../assets/logos/paila-logo.svg';
+import webAgentLogo from '../assets/logos/web-agent-logo.svg';
+import firstAgentLogo from '../assets/logos/first-agent-logo.svg';
 
 export const profile = {
   name: 'John Adhikari',
@@ -10,7 +18,7 @@ export const profile = {
   location: 'Kathmandu, Nepal',
   email: 'johnadhikari99@gmail.com',
   phone: '+977 9849099677',
-  image: '/profileImage.png',
+  image: profileImage,
   avatarAlt: 'John Adhikari — portfolio portrait',
 };
 
@@ -104,7 +112,7 @@ export const certifications = [
     issuer: 'Certificate of completion',
     icon: 'brain',
     desc: 'Immersive, hands-on journey through modern generative AI — models, prompting, and real-world agent workflows.',
-    link: '/portfolio/John_Adhikari_Certificate.pdf',
+    link: certificate,
     badge: 'Verified',
   },
 ];
@@ -113,6 +121,7 @@ export const projects = [
   {
     title: 'Zone Mart',
     icon: 'cart',
+    logo: zoneMartLogo,
     desc: 'A full galaxy of products — search, filters, cart, checkout and account. Survives the vacuum (offline PWA) with 15 currencies & 4 languages.',
     tech: ['React', 'Vite', 'PWA'],
     link: 'https://johnadhikari.github.io/zone-mart/',
@@ -121,6 +130,7 @@ export const projects = [
   {
     title: 'Zone Media',
     icon: 'chat',
+    logo: zoneMediaLogo,
     desc: 'A space station for socializing — signup/login, post feed, likes & comments powered by a FastAPI + SQLite core.',
     tech: ['React', 'Tailwind', 'FastAPI'],
     link: 'https://JohnAdhikari.github.io/social-media/',
@@ -129,6 +139,7 @@ export const projects = [
   {
     title: 'Zone AI Chat Assistant',
     icon: 'bot',
+    logo: chatBotLogo,
     desc: 'An AI co-pilot that switches between Gemini and GPT-4o Mini — the mission computer of chat interfaces.',
     tech: ['React', 'Gemini', 'OpenAI'],
     link: 'https://JohnAdhikari.github.io/chat-bot/',
@@ -137,6 +148,7 @@ export const projects = [
   {
     title: 'Paila — Offline GPS',
     icon: 'map',
+    logo: pailaLogo,
     desc: 'A star map for Nepal — offline navigation, road routing, trip logs and 210+ hidden points of interest, no signal needed.',
     tech: ['Flutter', 'flutter_map', 'OSRM'],
     link: '',
@@ -145,6 +157,7 @@ export const projects = [
   {
     title: 'Web Agent',
     icon: 'network',
+    logo: webAgentLogo,
     desc: 'A fleet of AI drones that plans and builds whole apps (React + FastAPI + SQLite) from a single command.',
     tech: ['Python', 'CrewAI', 'Gemini'],
     link: '',
@@ -153,6 +166,7 @@ export const projects = [
   {
     title: 'First Agent',
     icon: 'antenna',
+    logo: firstAgentLogo,
     desc: 'A signal-relay AI that sorts your inbox, triages messages and drafts replies automatically.',
     tech: ['Python', 'CrewAI', 'SMTP/IMAP'],
     link: '',
