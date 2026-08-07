@@ -163,22 +163,36 @@ function Scene() {
   );
 }
 
+function supportsWebGL() {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+  } catch {
+    return false;
+  }
+}
+
+function StaticPortrait() {
+  return (
+    <div aria-hidden="true" className="relative aspect-square w-64 sm:w-80">
+      <div className="absolute inset-0 rounded-full border-2 border-dashed border-line/70" />
+      <img
+        src={profileImage}
+        alt=""
+        className="absolute inset-10 rounded-full border border-line/60 object-cover"
+        style={{ boxShadow: '0 0 40px color-mix(in srgb, var(--accent-hi) 25%, transparent)' }}
+      />
+    </div>
+  );
+}
+
 export default function Hero3D() {
   const reduced = useReducedMotion();
+  const webglOk = useMemo(() => supportsWebGL(), []);
 
-  // Reduced motion: no WebGL, render a static CSS portrait instead.
-  if (reduced) {
-    return (
-      <div aria-hidden="true" className="relative aspect-square w-64 sm:w-80">
-        <div className="absolute inset-0 rounded-full border-2 border-dashed border-line/70" />
-        <img
-          src={profileImage}
-          alt=""
-          className="absolute inset-10 rounded-full border border-line/60 object-cover"
-          style={{ boxShadow: '0 0 40px color-mix(in srgb, var(--accent-hi) 25%, transparent)' }}
-        />
-      </div>
-    );
+  // Reduced motion or no WebGL: render a static CSS portrait instead.
+  if (reduced || !webglOk) {
+    return <StaticPortrait />;
   }
 
   return (
