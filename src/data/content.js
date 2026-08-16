@@ -1,6 +1,7 @@
 // Single source of truth for all portfolio content.
 import profileImage from '../assets/optimized/profileImage.jpg';
 import certificate from '../assets/logos/John_Adhikari_Certificate.pdf';
+import cs50xCertificate from '../assets/logos/CS50x_Certificate.pdf';
 import zoneMartLogo from '../assets/logos/zone-mart-logo.svg';
 import zoneMediaLogo from '../assets/logos/zone-media-logo.png';
 import chatBotLogo from '../assets/logos/chat-bot-logo.svg';
@@ -107,6 +108,14 @@ export const favorites = [
 ];
 
 export const certifications = [
+  {
+    title: 'CS50x — Computer Science',
+    issuer: 'Harvard University · edX',
+    icon: 'graduation',
+    desc: 'Harvard CS50: introduction to the intellectual enterprises of computer science. Finished with a full-stack social media app (React + FastAPI + SQL).',
+    link: cs50xCertificate,
+    badge: 'Verified',
+  },
   {
     title: 'Generative AI Mastermind',
     issuer: 'Certificate of completion',

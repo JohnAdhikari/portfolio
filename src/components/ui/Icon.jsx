@@ -37,6 +37,7 @@ import {
   FaRocket,
   FaSatelliteDish,
   FaTerminal,
+  FaGraduationCap,
 } from 'react-icons/fa';
 import { GiMagicGate, GiSatelliteCommunication } from 'react-icons/gi';
 import { LuRadar, LuSparkles } from 'react-icons/lu';
@@ -63,8 +64,8 @@ const map = {
   globe: FiGlobe,
   satellite: FaSatelliteDish,
   terminal: FaTerminal,
-  portal: GiMagicGate,
-  comm: GiSatelliteCommunication,
+  graduation: FaGraduationCap,
+  portal: GiMagicGate,  comm: GiSatelliteCommunication,
   linkedin: FiLinkedin,
   github: FiGithub,
   instagram: FiInstagram,
